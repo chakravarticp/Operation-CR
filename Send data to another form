@@ -1,0 +1,21 @@
+for each  rec in Name_and_Attendance
+{
+	temp = insert into test_report
+	[
+		Added_User=zoho.loginuser
+		Site_Name_tr=input.Select_Site.Site_lookup
+		Year_field_tr=input.Select_Year
+		Month_field_tr=input.Select_Month
+		Organization_tr=input.Organization
+		Name_rt=rec.Name
+		Designation_tr=rec.Designation
+		Basic_Salary_tr=rec.Basic_Salary
+		Present_day_tr=rec.Present_day
+		Extra_Hours_tr=rec.Extra_Hours
+		Extra_Hours_Salary_tr=rec.Extra_Hours_Salary
+		Earned_Salary_tr=rec.Earned_Salary
+		Travel_Allowance_tr=rec.Travel_Allowance
+		Advance_From_Site=rec.Advance_from_Company
+		Final_Salary_tr=rec.Final_Salary
+	];
+}
