@@ -1,0 +1,26 @@
+fet = Project_Masters[ID == input.Site_Name];
+if(input.Date_field.weekday() == 1)
+{
+	input.Human_Normal_Working_Hours = 0;
+	input.Human_Extra_Hours = input.Total_Working_Hours;
+	input.Machine_Normal_Hours = 0;
+	input.Machine_Extra_Hours = input.Total_Working_Hours;
+	//input.Remarks_If_any= "Sunday";
+}
+else
+{
+	if(Total_Working_Hours >= fet.Minimum_O_S_Working_Hour)
+	{
+		input.Human_Normal_Working_Hours = fet.Minimum_O_S_Working_Hour;
+		input.Human_Extra_Hours = input.Total_Working_Hours - fet.Minimum_O_S_Working_Hour;
+		input.Machine_Normal_Hours = fet.Minimum_Machine_Working_Hour;
+		input.Machine_Extra_Hours = input.Total_Working_Hours - fet.Minimum_Machine_Working_Hour;
+	}
+	else if(Total_Working_Hours <= fet.Minimum_O_S_Working_Hour)
+	{
+		input.Human_Normal_Working_Hours = fet.Minimum_O_S_Working_Hour;
+		input.Human_Extra_Hours = 0;
+		input.Machine_Normal_Hours = fet.Minimum_Machine_Working_Hour;
+		input.Machine_Extra_Hours = 0;
+	}
+}
