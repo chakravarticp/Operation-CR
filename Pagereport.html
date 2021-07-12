@@ -1,0 +1,55 @@
+<%{
+	fet = Advanced_Payments[ID != 0];
+	%>
+<h2> Advanced Payments Report</h2>
+<style>
+th {
+  border: 2px solid black;
+  text-align: left;
+  padding: 8px;
+  color: red;
+}
+td {
+  border: 2px solid black;
+   table-layout: auto;
+  text-align: left;
+  padding: 8px;
+  color: blue;
+}
+table {
+  table-layout: fixed;
+}
+</style>
+<p style="width:800%;"> Here you can see the report of ZC Form report </p>
+<table style=" width:1200px;">
+<tr>
+<th>Site Name</th>
+<th>Date</th>
+<th> Human </th>
+<th>Travel Allowance </th>
+<th>Advance From Site </th>
+<th>Advance From Company </th>
+</tr>
+</table>
+<%
+	for each  rec in fet
+	{
+		%>
+<table style=" width:1200px;">
+		<tr>
+<td><%=rec.Site_Name.Site_lookup%></td>
+<td> <%=rec.Date_field%></td>
+<td><%=rec.Operator_1.Name%>  <br>
+  <%=rec.Signalman_1.Name%> <br>
+  <%=rec.Signalman_2.Name%> <br> </td>
+<td> <%=rec.Travel_Allowance%></td>
+<td> <%=rec.Advance_From_Site%></td>
+<td> <%=rec.Advance_from_Company%></td>
+</tr>
+</table>
+</body>
+</html>
+<%
+	}
+
+}%>
