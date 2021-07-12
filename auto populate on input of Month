@@ -1,0 +1,399 @@
+coll = Collection();
+temp = Daily_Log[Site_Name == input.Select_Site && Year_Number == input.Select_Year && Month_Number == input.Select_Month && Operator_1.Name != "" && Operator_1.Name != null].distinct(Operator_1);
+for each  rec in temp
+{
+	res = Daily_Log[Operator_1 == rec];
+	row1 = Monthly_Total.Name_and_Attendance();
+	if(res.Operator_1.Name != "" && res.Operator_1.Name != null)
+	{
+		row1.Name=res.Operator_1.Name;
+		tt = Staff_Masters[Name == res.Operator_1.Name];
+		row1.Basic_Salary=tt.Basic_Salary;
+		row1.Designation=tt.Role;
+		fet1 = Daily_Log[Operator_1 != null && Operator_1 == res.Operator_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].count(Month_Number);
+		fet2 = Daily_Log[Operator_1 != null && Operator_1 == res.Operator_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Human_Extra_Hours);
+		fet3 = Advanced_Payments[Operator_1.Name != null && Operator_1 = res.Operator_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Travel_Allowance);
+		fet4 = Advanced_Payments[Operator_1 != null && Operator_1 = res.Operator_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Advance_From_Site);
+		fet5 = Advanced_Payments[Operator_1 != null && Operator_1 = res.Operator_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Advance_from_Company);
+		row1.Present_day=fet1;
+		row1.Extra_Hours=fet2;
+		row1.Travel_Allowance=fet3;
+		row1.Advance_From_Site=fet4;
+		row1.Advance_from_Company=fet5;
+		//salary calculations
+		if(Select_Month == "Jan")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Feb")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (28 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=28 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Mar")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Apr")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "May")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Jun")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Jul")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Aug")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Sep")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Oct")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Nov")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Dec")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		coll.insert(row1);
+	}
+}
+input.Name_and_Attendance.insert(coll);
+//for signalman 1
+coll = Collection();
+temp = Daily_Log[Site_Name == input.Select_Site && Year_Number == input.Select_Year && Month_Number == input.Select_Month && Signalman_1.Name != ""].distinct(Signalman_1);
+for each  rec in temp
+{
+	res = Daily_Log[Signalman_1 == rec];
+	row1 = Monthly_Total.Name_and_Attendance();
+	if(res.Signalman_1.Name != "" && res.Signalman_1.Name != null)
+	{
+		row1.Name=res.Signalman_1.Name;
+		tt = Staff_Masters[Name == res.Signalman_1.Name];
+		row1.Basic_Salary=tt.Basic_Salary;
+		row1.Designation=tt.Role;
+		var1 = Daily_Log[Signalman_1 != null && Signalman_1 == res.Signalman_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].count(Month_Number);
+		var2 = Daily_Log[Signalman_1 != null && Signalman_1 == res.Signalman_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Human_Extra_Hours);
+		var3 = Advanced_Payments[Signalman_1 != null && Signalman_1 = res.Signalman_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Travel_Allowance);
+		var4 = Advanced_Payments[Signalman_1 != null && Signalman_1 = res.Signalman_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Advance_From_Site);
+		var5 = Advanced_Payments[Signalman_1 != null && Signalman_1 = res.Signalman_1 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Advance_from_Company);
+		row1.Present_day=var1;
+		row1.Extra_Hours=var2;
+		row1.Travel_Allowance=var3;
+		row1.Advance_From_Site=var4;
+		row1.Advance_from_Company=var5;
+		//salary calculations
+		if(Select_Month == "Jan")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Feb")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (28 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=28 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Mar")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Apr")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "May")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Jun")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Jul")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Aug")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Sep")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Oct")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Nov")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Dec")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		coll.insert(row1);
+	}
+}
+input.Name_and_Attendance.insert(coll);
+//for signalman 2
+coll = Collection();
+temp = Daily_Log[Site_Name == input.Select_Site && Year_Number == input.Select_Year && Month_Number == input.Select_Month && Signalman_2.Name != ""].distinct(Signalman_2);
+for each  rec in temp
+{
+	res = Daily_Log[Signalman_2 == rec];
+	row1 = Monthly_Total.Name_and_Attendance();
+	if(res.Signalman_2.Name != "" && res.Signalman_2.Name != null)
+	{
+		var1 = Daily_Log[Signalman_2 != null && Signalman_2 == res.Signalman_2 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].count(Month_Number);
+		var2 = Daily_Log[Signalman_2 != null && Signalman_2 == res.Signalman_2 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Human_Extra_Hours);
+		var3 = Advanced_Payments[Signalman_2 != null && Signalman_2 == res.Signalman_2 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Travel_Allowance);
+		var4 = Advanced_Payments[Signalman_2 != null && Signalman_2 == res.Signalman_2 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Advance_From_Site);
+		var5 = Advanced_Payments[Signalman_2 != null && Signalman_2 == res.Signalman_2 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Advance_from_Company);
+		row1.Advance_from_Company=var5;
+		row1.Advance_From_Site=var4;
+		row1.Travel_Allowance=var3;
+		row1.Present_day=var1;
+		row1.Extra_Hours=var2;
+		row1.Name=res.Signalman_2.Name;
+		tt = Staff_Masters[Name == res.Signalman_2.Name];
+		row1.Basic_Salary=tt.Basic_Salary;
+		row1.Designation=tt.Role;
+		//salary calculations of signalman 2
+		if(Select_Month == "Jan")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Feb")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 28 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (28 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=28 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Mar")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Apr")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "May")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Jun")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Jul")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Aug")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Sep")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Oct")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Nov")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Dec")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		coll.insert(row1);
+	}
+}
+input.Name_and_Attendance.insert(coll);
+// for signalman 3
+coll = Collection();
+temp = Daily_Log[Site_Name == input.Select_Site && Year_Number == input.Select_Year && Month_Number == input.Select_Month && Signalman_3.Name != ""].distinct(Signalman_3);
+for each  rec in temp
+{
+	res = Daily_Log[Signalman_3 == rec];
+	row1 = Monthly_Total.Name_and_Attendance();
+	if(res.Signalman_3.Name != "" && res.Signalman_3.Name != null)
+	{
+		var1 = Daily_Log[Signalman_3 != null && Signalman_3 == res.Signalman_3 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].count(Month_Number);
+		var2 = Daily_Log[Signalman_3 != null && Signalman_3 == res.Signalman_3 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Human_Extra_Hours);
+		var3 = Advanced_Payments[Signalman_3 != null && Signalman_3 = res.Signalman_3 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Travel_Allowance);
+		var4 = Advanced_Payments[Signalman_3 != null && Signalman_3 = res.Signalman_3 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Advance_From_Site);
+		var5 = Advanced_Payments[Signalman_3 != null && Signalman_3 = res.Signalman_3 && Site_Name == input.Select_Site && Month_Number == input.Select_Month && Year_Number == input.Select_Year].sum(Advance_from_Company);
+		row1.Advance_from_Company=var5;
+		row1.Advance_From_Site=var4;
+		row1.Travel_Allowance=var3;
+		row1.Present_day=var1;
+		row1.Extra_Hours=var2;
+		row1.Name=res.Signalman_3.Name;
+		tt = Staff_Masters[Name == res.Signalman_3.Name];
+		row1.Basic_Salary=tt.Basic_Salary;
+		row1.Designation=tt.Role;
+		//salary calculations of signalman 3
+		if(Select_Month == "Jan")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Feb")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 28 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (28 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=28 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Mar")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Apr")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "May")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Jun")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Jul")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Aug")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Sep")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Oct")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Nov")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 30 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (30 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=30 - ifnull(row1.Present_day,0);
+		}
+		else if(Select_Month == "Dec")
+		{
+			row1.Earned_Salary=ifnull(tt.Basic_Salary,0) / 31 * ifnull(row1.Present_day,0);
+			row1.Extra_Hours_Salary=ifnull(tt.Basic_Salary,0) / (31 * 12) * ifnull(row1.Extra_Hours,0);
+			row1.Leave_Days=31 - ifnull(row1.Present_day,0);
+		}
+		coll.insert(row1);
+	}
+}
+input.Name_and_Attendance.insert(coll);
